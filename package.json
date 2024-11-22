@@ -1,0 +1,12 @@
+{
+  "name": "playwright-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.9.1",
+    "expect": "^29.7.0"
+  },
+  "scripts": {}
+}
