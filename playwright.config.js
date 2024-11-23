@@ -36,7 +36,7 @@ module.exports = defineConfig({
   projects: [
     {
       name: "e2e",
-      testDir: "tests/",
+      testDir: "tests/e2e",
       testMatch: "**/*.e2e.test.js",
       outputDir: "test-results/e2e",
       timeout: 60000,
@@ -46,7 +46,7 @@ module.exports = defineConfig({
     },
     {
       name: "api",
-      testDir: "tests/",
+      testDir: "tests/api",
       testMatch: "**/*.api.test.js",
       outputDir: "test-results/api",
       timeout: 60000,
