@@ -20,6 +20,7 @@ test.describe.parallel("User Authentication Tests", () => {
     ).toBeVisible();
   });
 
+  // eslint-disable-next-line playwright/expect-expect
   test("should register a new user successfully", async ({ page }) => {
     const userData = generateUserData();
 

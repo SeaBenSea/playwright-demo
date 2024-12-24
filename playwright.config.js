@@ -3,7 +3,7 @@ import { defineConfig } from "@playwright/test";
 
 process.env.PLAYWRIGHT_EXPERIMENTAL_FEATURES = "1";
 
-module.exports = defineConfig({
+export default defineConfig({
   expect: {
     timeout: 10 * 1000,
   },
