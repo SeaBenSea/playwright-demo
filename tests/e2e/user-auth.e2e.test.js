@@ -1,11 +1,11 @@
-const { test, expect } = require("@playwright/test");
-const { generateUserData } = require("../helpers/userData");
-const {
+import { expect, test } from "@playwright/test";
+import { generateUserData } from "../lib/userData";
+import {
   deleteAccount,
   registerUser,
   loginUser,
   fillSignupForm,
-} = require("../helpers/authHelpers");
+} from "../lib/authHelpers";
 
 test.describe.parallel("User Authentication Tests", () => {
   test.use({ testIdAttribute: "data-qa" });

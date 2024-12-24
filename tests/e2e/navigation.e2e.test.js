@@ -1,4 +1,6 @@
-const { test, expect } = require("@playwright/test");
+import { expect, test } from "@playwright/test";
+import { scrollDown, scrollUp } from "../lib/navigationHelpers.js";
+import { subscriptionHeading } from "../lib/selectors.js";
 
 test.describe.parallel("Navigation Tests", () => {
   test.use({ testIdAttribute: "data-qa" });
@@ -52,18 +54,6 @@ test.describe.parallel("Navigation Tests", () => {
   });
 });
 
-const subscriptionHeading = (page) => {
-  return page.getByRole("heading", { name: "Subscription", exact: true });
-};
-
 const mainHeading = (page) => {
   return page.getByRole("heading", { name: "Full-Fledged practice website" });
-};
-
-const scrollDown = async (page) => {
-  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-};
-
-const scrollUp = async (page) => {
-  await page.evaluate(() => window.scrollTo(0, 0));
 };

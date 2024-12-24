@@ -1,5 +1,6 @@
 // @ts-check
-const { defineConfig } = require("@playwright/test");
+import { defineConfig } from "@playwright/test";
+
 process.env.PLAYWRIGHT_EXPERIMENTAL_FEATURES = "1";
 
 module.exports = defineConfig({

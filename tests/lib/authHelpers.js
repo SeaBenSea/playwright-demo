@@ -1,13 +1,13 @@
-const { expect } = require("@playwright/test");
+import { expect } from "@playwright/test";
 
-async function fillSignupForm(page, userData) {
+export const fillSignupForm = async (page, userData) => {
   const { firstName, lastName, email } = userData;
   await page.getByPlaceholder("Name").fill(`${firstName} ${lastName}`);
   await page.getByTestId("signup-email").fill(email);
   await page.getByRole("button", { name: "Signup" }).click();
-}
+};
 
-async function fillAccountDetails(page, userData) {
+const fillAccountDetails = async (page, userData) => {
   const { prefix, password, dob_day, dob_month, dob_year } = userData;
 
   await page.getByRole("radio", { name: prefix }).check();
@@ -21,9 +21,9 @@ async function fillAccountDetails(page, userData) {
     .getByRole("checkbox", { name: /Sign up for our newsletter/i })
     .check();
   await page.getByLabel(/Receive special offers/i).check();
-}
+};
 
-async function fillAddressDetails(page, userData) {
+const fillAddressDetails = async (page, userData) => {
   const {
     firstName,
     lastName,
@@ -45,28 +45,28 @@ async function fillAddressDetails(page, userData) {
   await page.getByLabel("City").fill(city);
   await page.getByTestId("zipcode").fill(zip);
   await page.getByLabel("Mobile Number").fill(mobilePhone);
-}
+};
 
-async function createAccount(page) {
+const createAccount = async (page) => {
   await page.getByRole("button", { name: "Create Account" }).click();
   await expect(page.getByText("Account Created!")).toBeVisible();
-}
+};
 
-async function continueToLoggedInPage(page, userData) {
+const continueToLoggedInPage = async (page, userData) => {
   const { firstName, lastName } = userData;
   await page.getByRole("link", { name: "Continue" }).click();
   await expect(
     page.getByText(`Logged in as ${firstName} ${lastName}`)
   ).toBeVisible();
-}
+};
 
-async function deleteAccount(page) {
+export const deleteAccount = async (page) => {
   await page.getByRole("link", { name: "Delete Account" }).click();
   await expect(page.getByText("Account Deleted!")).toBeVisible();
   await page.getByRole("link", { name: "Continue" }).click();
-}
+};
 
-async function registerUser(page, userData) {
+export const registerUser = async (page, userData) => {
   await fillSignupForm(page, userData);
   await expect(page.getByText("Enter Account Information")).toBeVisible();
 
@@ -75,18 +75,11 @@ async function registerUser(page, userData) {
 
   await createAccount(page);
   await continueToLoggedInPage(page, userData);
-}
+};
 
-async function loginUser(page, userData) {
+export const loginUser = async (page, userData) => {
   const { email, password } = userData;
   await page.getByTestId("login-email").fill(email);
   await page.getByPlaceholder("Password").fill(password);
   await page.getByRole("button", { name: "Login" }).click();
-}
-
-module.exports = {
-  fillSignupForm,
-  registerUser,
-  loginUser,
-  deleteAccount,
 };
