@@ -1,5 +1,5 @@
-const { test, expect } = require("@playwright/test");
-const { generateUserData } = require("../helpers/userData");
+import { expect, test } from "@playwright/test";
+import { generateUserData } from "../lib/userData";
 
 test.describe.parallel("Contact Tests", () => {
   test.use({ testIdAttribute: "data-qa" });

@@ -1,6 +1,6 @@
-const { faker } = require("@faker-js/faker");
+import { faker } from "@faker-js/faker";
 
-function generateUserData() {
+export const generateUserData = () => {
   const dob = faker.date.birthdate();
 
   const userData = {
@@ -28,6 +28,4 @@ function generateUserData() {
   userData.dob_year = dob.getFullYear().toString();
 
   return userData;
-}
-
-module.exports = { generateUserData };
+};

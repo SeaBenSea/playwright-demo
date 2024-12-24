@@ -3,14 +3,21 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "type": "module",
   "devDependencies": {
+    "@eslint/js": "^9.17.0",
     "@faker-js/faker": "^9.2.0",
     "@playwright/test": "^1.49.0",
     "@types/node": "^22.9.1",
-    "expect": "^29.7.0"
+    "eslint": "^9.17.0",
+    "eslint-plugin-playwright": "^2.1.0",
+    "expect": "^29.7.0",
+    "globals": "^15.14.0"
   },
   "scripts": {
     "test:e2e": "playwright test --project e2e --config playwright.config.js",
-    "test:api": "playwright test --project api --config playwright.config.js"
+    "test:api": "playwright test --project api --config playwright.config.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   }
 }
