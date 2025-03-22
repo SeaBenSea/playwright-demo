@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker";
+import { faker } from '@faker-js/faker';
 
 export const generateUserData = () => {
   const dob = faker.date.birthdate();
@@ -18,13 +18,13 @@ export const generateUserData = () => {
     mobilePhone: faker.phone.number(),
   };
 
-  userData.prefix = userData.sex === "male" ? "Mr." : "Mrs.";
+  userData.prefix = userData.sex === 'male' ? 'Mr.' : 'Mrs.';
   userData.email = `${Date.now()}${faker.internet.email({
     firstName: userData.firstName,
     lastName: userData.lastName,
   })}`;
   userData.dob_day = dob.getDate().toString();
-  userData.dob_month = dob.toLocaleString("default", { month: "long" });
+  userData.dob_month = dob.toLocaleString('default', { month: 'long' });
   userData.dob_year = dob.getFullYear().toString();
 
   return userData;
