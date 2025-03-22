@@ -1,13 +1,12 @@
 import { expect, test } from '@playwright/test';
-import { scrollDown, scrollUp } from '../lib/navigationHelpers.js';
+import { navigateToHome, scrollDown, scrollUp } from '../lib/navigationHelpers.js';
 import { subscriptionHeading } from '../lib/selectors.js';
 
 test.describe.parallel('Navigation Tests', () => {
   test.use({ testIdAttribute: 'data-qa' });
 
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
-    await expect(page).toHaveTitle(/Automation Exercise/i);
+    await navigateToHome(page);
   });
 
   test('should navigate to test cases page', async ({ page }) => {

@@ -1,16 +1,14 @@
 import { expect, test } from '@playwright/test';
 import { generateUserData } from '../lib/userData';
 import { deleteAccount, registerUser, loginUser, fillSignupForm } from '../lib/authHelpers';
+import { navigateToHome, navigateToPage } from '../lib/navigationHelpers';
 
 test.describe.parallel('User Authentication Tests', () => {
   test.use({ testIdAttribute: 'data-qa' });
 
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
-    await expect(page).toHaveTitle(/Automation Exercise/i);
-
-    await page.getByRole('link', { name: 'Signup / Login' }).click();
-    await expect(page.getByRole('heading', { name: 'New User Signup!' })).toBeVisible();
+    await navigateToHome(page);
+    await navigateToPage(page, 'Signup / Login', 'New User Signup!');
   });
 
   // eslint-disable-next-line playwright/expect-expect
@@ -34,13 +32,11 @@ test.describe.parallel('User Authentication Tests', () => {
     });
 
     await test.step('Logout the newly created user', async () => {
-      await page.getByRole('link', { name: 'Logout' }).click();
-      await expect(page.getByRole('heading', { name: 'New User Signup!' })).toBeVisible();
+      await navigateToPage(page, 'Logout', 'New User Signup!');
     });
 
     await test.step('Try registering with the same user credentials again', async () => {
-      await page.getByRole('link', { name: 'Signup / Login' }).click();
-      await expect(page.getByRole('heading', { name: 'New User Signup!' })).toBeVisible();
+      await navigateToPage(page, 'Signup / Login', 'New User Signup!');
 
       await fillSignupForm(page, userData);
       await expect(page.getByText(/Email Address already exist!/i)).toBeVisible();
@@ -63,8 +59,7 @@ test.describe.parallel('User Authentication Tests', () => {
 
     await test.step('Register and then logout to prepare for login test', async () => {
       await registerUser(page, userData);
-      await page.getByRole('link', { name: 'Logout' }).click();
-      await expect(page.getByRole('heading', { name: 'New User Signup!' })).toBeVisible();
+      await navigateToPage(page, 'Logout', 'New User Signup!');
     });
 
     await test.step('Login with the newly registered user', async () => {

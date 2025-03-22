@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { generateUserData } from '../lib/userData';
+import { navigateToHome, navigateToPage } from '../lib/navigationHelpers';
 
 test.describe.parallel('Contact Tests', () => {
   test.use({ testIdAttribute: 'data-qa' });
@@ -8,11 +9,8 @@ test.describe.parallel('Contact Tests', () => {
     const userData = generateUserData();
 
     await test.step('Navigate to the contact page', async () => {
-      await page.goto('/');
-      await expect(page).toHaveTitle(/Automation Exercise/i);
-
-      await page.getByRole('link', { name: 'Contact Us' }).click();
-      await expect(page.getByRole('heading', { name: 'Get In Touch' })).toBeVisible();
+      await navigateToHome(page);
+      await navigateToPage(page, 'Contact Us', 'Get In Touch');
     });
 
     await test.step('Fill the text fields of the form', async () => {

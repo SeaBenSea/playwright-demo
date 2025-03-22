@@ -1,11 +1,10 @@
 import { expect, test } from '@playwright/test';
-import { scrollDown } from '../lib/navigationHelpers.js';
+import { navigateToHome, scrollDown } from '../lib/navigationHelpers.js';
 import { subscriptionHeading } from '../lib/selectors';
 
 test.describe.parallel('Subscription Tests', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
-    await expect(page).toHaveTitle(/Automation Exercise/i);
+    await navigateToHome(page);
   });
 
   test('should subscribe using form in home page', async ({ page }) => {

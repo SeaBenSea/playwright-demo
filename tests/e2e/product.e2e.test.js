@@ -1,21 +1,21 @@
 import { expect, test } from '@playwright/test';
 import { generateUserData } from '../lib/userData';
+import { navigateToHome, navigateToPage } from '../lib/navigationHelpers';
+import { verifyAllElementsVisible } from '../lib/testHelpers';
 
 test.describe.parallel('Product Tests', () => {
   const productName = 'Blue Top';
+
+  test.beforeEach(async ({ page }) => {
+    await navigateToHome(page);
+  });
 
   test('should verify all products and product details page', async ({ page }) => {
     const productPrice = 'Rs. 500';
     const productImage = '/get_product_picture/1';
 
-    await test.step('Navigate to Home Page', async () => {
-      await page.goto('/');
-      await expect(page).toHaveTitle(/Automation Exercise/i);
-    });
-
     await test.step('Navigate to the Product page', async () => {
-      await page.getByRole('link', { name: 'Product' }).first().click();
-      await expect(page.getByRole('heading', { name: 'All Products' })).toBeVisible();
+      await navigateToPage(page, 'Product', 'All Products');
     });
 
     await test.step('Verify product list is visible', async () => {
@@ -27,9 +27,7 @@ test.describe.parallel('Product Tests', () => {
       ).toBeVisible();
 
       expect(products.length).toBeGreaterThan(0);
-      for (const product of products) {
-        await expect(product).toBeVisible();
-      }
+      verifyAllElementsVisible(products);
     });
 
     await test.step("Navigate to the first product's details page", async () => {
@@ -52,14 +50,8 @@ test.describe.parallel('Product Tests', () => {
   });
 
   test('should search for a product', async ({ page }) => {
-    await test.step('Navigate to Home Page', async () => {
-      await page.goto('/');
-      await expect(page).toHaveTitle(/Automation Exercise/i);
-    });
-
     await test.step('Navigate to the Product page', async () => {
-      await page.getByRole('link', { name: 'Product' }).first().click();
-      await expect(page.getByRole('heading', { name: 'All Products' })).toBeVisible();
+      await navigateToPage(page, 'Product', 'All Products');
     });
 
     await test.step('Search for the product', async () => {
@@ -71,29 +63,19 @@ test.describe.parallel('Product Tests', () => {
     await test.step('Verify search results are relevant', async () => {
       const products = await page.locator('.productinfo').all();
       expect(products.length).toBeGreaterThan(0);
-      for (const product of products) {
-        await expect(product).toBeVisible();
-        await expect(product.getByRole('paragraph').filter({ hasText: productName })).toBeVisible();
-      }
+      verifyAllElementsVisible(products, [{ role: 'paragraph', filter: { hasText: productName } }]);
     });
   });
 
   test('should view category products', async ({ page }) => {
     let categories;
 
-    await test.step('Navigate to Home Page', async () => {
-      await page.goto('/');
-      await expect(page).toHaveTitle(/Automation Exercise/i);
-    });
-
     await test.step('Ensure categories are visible on left', async () => {
       await expect(page.getByRole('heading', { name: 'Category' })).toBeVisible();
       categories = await page.locator('.category-products').getByRole('link').all();
 
       expect(categories).toHaveLength(3);
-      for (const category of categories) {
-        await expect(category).toBeVisible();
-      }
+      verifyAllElementsVisible(categories);
     });
 
     const subcategories = {
@@ -108,21 +90,14 @@ test.describe.parallel('Product Tests', () => {
       for (const subcategory of subcategories[categoryName]) {
         await test.step(`View ${categoryName} category ${subcategory} products`, async () => {
           await category.click();
-          await page.getByRole('link', { name: subcategory }).click();
-          await expect(
-            page.getByRole('heading', {
-              name: `${categoryName.toUpperCase()} - ${subcategory.toUpperCase()} PRODUCTS`,
-            })
-          ).toBeVisible();
+          const heading = `${categoryName.toUpperCase()} - ${subcategory.toUpperCase()} PRODUCTS`;
+          await navigateToPage(page, subcategory, heading);
 
           const products = await page.locator('.productinfo').all();
           expect(products.length).toBeGreaterThan(0);
-          for (const product of products) {
-            await expect(product).toBeVisible();
-            await expect(
-              product.getByRole('paragraph').filter({ hasText: subcategory })
-            ).toBeVisible();
-          }
+          verifyAllElementsVisible(products, [
+            { role: 'paragraph', filter: { hasText: subcategory } },
+          ]);
         });
       }
     }
@@ -130,14 +105,9 @@ test.describe.parallel('Product Tests', () => {
 
   test('should view brand product details', async ({ page }) => {
     let brands;
-    await test.step('Navigate to Home Page', async () => {
-      await page.goto('/');
-      await expect(page).toHaveTitle(/Automation Exercise/i);
-    });
 
     await test.step('Navigate to the Product page', async () => {
-      await page.getByRole('link', { name: 'Product' }).first().click();
-      await expect(page.getByRole('heading', { name: 'All Products' })).toBeVisible();
+      await navigateToPage(page, 'Product', 'All Products');
     });
 
     await test.step('Ensure brands are visible on left', async () => {
@@ -145,9 +115,7 @@ test.describe.parallel('Product Tests', () => {
       brands = await page.locator('.brands-name').getByRole('link').all();
 
       expect(brands).toHaveLength(8);
-      for (const brand of brands) {
-        await expect(brand).toBeVisible();
-      }
+      verifyAllElementsVisible(brands);
     });
 
     for (const brand of brands) {
@@ -168,14 +136,8 @@ test.describe.parallel('Product Tests', () => {
   });
 
   test('should add review to product', async ({ page }) => {
-    await test.step('Navigate to Home Page', async () => {
-      await page.goto('/');
-      await expect(page).toHaveTitle(/Automation Exercise/i);
-    });
-
     await test.step('Navigate to the Product page', async () => {
-      await page.getByRole('link', { name: 'Product' }).first().click();
-      await expect(page.getByRole('heading', { name: 'All Products' })).toBeVisible();
+      await navigateToPage(page, 'Product', 'All Products');
     });
 
     await test.step("Navigate to the first product's details page", async () => {
