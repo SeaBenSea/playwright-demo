@@ -12,12 +12,15 @@
     "eslint": "^9.17.0",
     "eslint-plugin-playwright": "^2.1.0",
     "expect": "^29.7.0",
-    "globals": "^15.14.0"
+    "globals": "^15.14.0",
+    "prettier": "^3.5.3"
   },
   "scripts": {
     "test:e2e": "playwright test --project e2e --config playwright.config.js",
     "test:api": "playwright test --project api --config playwright.config.js",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   }
 }

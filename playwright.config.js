@@ -1,7 +1,7 @@
 // @ts-check
-import { defineConfig } from "@playwright/test";
+import { defineConfig } from '@playwright/test';
 
-process.env.PLAYWRIGHT_EXPERIMENTAL_FEATURES = "1";
+process.env.PLAYWRIGHT_EXPERIMENTAL_FEATURES = '1';
 
 export default defineConfig({
   expect: {
@@ -9,26 +9,26 @@ export default defineConfig({
   },
   retries: process.env.CI ? 3 : 0,
   reporter: process.env.CI
-    ? "github"
+    ? 'github'
     : [
-        ["list"],
-        ["html", { open: "never", outputFolder: "reports" }],
-        ["json", { outputFile: "reports/results.json" }],
+        ['list'],
+        ['html', { open: 'never', outputFolder: 'reports' }],
+        ['json', { outputFile: 'reports/results.json' }],
       ],
   fullyParallel: true,
   workers: process.env.CI ? 4 : undefined,
   use: {
-    browsers: ["chromium"],
+    browsers: ['chromium'],
     viewport: { width: 1440, height: 900 },
-    screenshot: "only-on-failure",
-    trace: "retain-on-failure",
+    screenshot: 'only-on-failure',
+    trace: 'retain-on-failure',
     launchOptions: {
       args: [
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-        "--disable-web-security",
-        "--disable-gpu",
-        "--disable-dev-shm-usage",
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-web-security',
+        '--disable-gpu',
+        '--disable-dev-shm-usage',
       ],
     },
     headless: true,
@@ -36,23 +36,23 @@ export default defineConfig({
 
   projects: [
     {
-      name: "e2e",
-      testDir: "tests/e2e",
-      testMatch: "**/*.e2e.test.js",
-      outputDir: "test-results/e2e",
+      name: 'e2e',
+      testDir: 'tests/e2e',
+      testMatch: '**/*.e2e.test.js',
+      outputDir: 'test-results/e2e',
       timeout: 60000,
       use: {
-        baseURL: "https://www.automationexercise.com/",
+        baseURL: 'https://www.automationexercise.com/',
       },
     },
     {
-      name: "api",
-      testDir: "tests/api",
-      testMatch: "**/*.api.test.js",
-      outputDir: "test-results/api",
+      name: 'api',
+      testDir: 'tests/api',
+      testMatch: '**/*.api.test.js',
+      outputDir: 'test-results/api',
       timeout: 60000,
       use: {
-        baseURL: "https://automationexercise.com/api/",
+        baseURL: 'https://automationexercise.com/api/',
       },
     },
   ],
