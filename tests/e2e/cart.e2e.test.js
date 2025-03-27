@@ -70,7 +70,9 @@ test.describe.parallel('Cart Tests', () => {
         .then(text => text.split(' ')[1]);
 
       await expect(productRow.getByRole('cell', { name: '4' })).toBeVisible();
-      await expect(productRow.getByRole('cell', { name: `Rs. ${parseFloat(productPrice) * 4}` })).toBeVisible();
+      await expect(
+        productRow.getByRole('cell', { name: `Rs. ${parseFloat(productPrice) * 4}` })
+      ).toBeVisible();
     });
   });
 
@@ -201,7 +203,7 @@ const addItemToCart = async (page, productLocator, productIndex, continueShoppin
     price: await productLocator[productIndex].getByRole('heading').textContent(),
   };
 
-  await productLocator[productIndex].getByRole('img').hover();
+  await productLocator[productIndex].getByRole('img').first().hover();
   await page.locator('.overlay-content .btn').nth(productIndex).click();
 
   await expect(
