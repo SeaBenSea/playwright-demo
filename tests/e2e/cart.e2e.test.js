@@ -70,7 +70,7 @@ test.describe.parallel('Cart Tests', () => {
         .then(text => text.split(' ')[1]);
 
       await expect(productRow.getByRole('cell', { name: '4' })).toBeVisible();
-      await expect(productRow.getByRole('cell', { name: `Rs. ${productPrice * 4}` })).toBeVisible();
+      await expect(productRow.getByRole('cell', { name: `Rs. ${parseFloat(productPrice) * 4}` })).toBeVisible();
     });
   });
 
