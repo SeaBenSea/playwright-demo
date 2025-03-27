@@ -16,6 +16,8 @@ export const generateUserData = () => {
     city: faker.location.city(),
     zip: faker.location.zipCode(),
     mobilePhone: faker.phone.number(),
+    cardNumber: faker.finance.creditCardNumber(),
+    cardCvc: faker.finance.creditCardCVV(),
   };
 
   userData.prefix = userData.sex === 'male' ? 'Mr.' : 'Mrs.';
