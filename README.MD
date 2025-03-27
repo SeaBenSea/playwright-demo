@@ -52,6 +52,22 @@ This repository contains end-to-end (E2E) test suites and API test suites built 
 └── README.md
 ```
 
+## Distribution of the Test Cases
+
+```plaintext
+.
+├─ tests/
+│  ├─ cart.e2e.test.js           // covers TCs 12, 13, 17, 20, 22
+│  ├─ contact.e2e.test.js        // covers TC 6
+│  ├─ navigation.e2e.test.js     // covers TCs 7, 25, 26
+│  ├─ order.e2e.test.js          // covers TCs 14, 15, 16, 23, 24
+│  ├─ product.e2e.test.js        // covers TCs 8, 9, 18, 19, 21
+│  ├─ subscription.e2e.test.js   // covers TCs 10, 11
+│  └─ user-auth.e2e.test.js      // covers TCs 1, 2, 3, 4, 5
+```
+
+**Note**: TC23 is not covered seperately as it is covered in the TC14, TC15, TC16.
+
 ### Key Directories & Files
 
 - **`tests/e2e`**: All end-to-end tests, each focusing on a specific suite or feature.
