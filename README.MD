@@ -66,8 +66,7 @@ This repository contains end-to-end (E2E) test suites and API test suites built 
 │  └─ user-auth.e2e.test.js      // covers TCs 1, 2, 3, 4, 5
 ```
 
-**Note**: TC23 is not covered seperately as it is covered in the TC14, TC15, TC16.
-
+**Note**: TC23 is not covered separately as it is covered in the TC14, TC15, TC16.
 ### Key Directories & Files
 
 - **`tests/e2e`**: All end-to-end tests, each focusing on a specific suite or feature.
