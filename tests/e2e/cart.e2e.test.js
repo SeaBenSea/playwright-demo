@@ -1,10 +1,9 @@
 import { expect, test } from '@playwright/test';
 import { navigateToHome, navigateToPage } from '../lib/navigationHelpers';
-import { verifyAllElementsVisible } from '../lib/testHelpers';
+import { addItemToCart, verifyAllElementsVisible } from '../lib/testHelpers';
 import { generateUserData } from '../lib/userData';
 import { deleteAccount, loginUser, registerUser } from '../lib/authHelpers';
-
-const PRODUCT_ADDED_MESSAGE = 'Your product has been added to cart.';
+import { PRODUCT_ADDED_MESSAGE } from '../lib/constants';
 
 test.describe.parallel('Cart Tests', () => {
   test.use({ testIdAttribute: 'data-qa' });
@@ -193,29 +192,6 @@ test.describe.parallel('Cart Tests', () => {
     });
   });
 });
-
-const addItemToCart = async (page, productLocator, productIndex, continueShopping = true) => {
-  await expect(page.getByRole('paragraph').filter({ hasText: PRODUCT_ADDED_MESSAGE })).toBeHidden();
-
-  const product = {
-    id: productIndex + 1,
-    name: await productLocator[productIndex].getByRole('paragraph').textContent(),
-    price: await productLocator[productIndex].getByRole('heading').textContent(),
-  };
-
-  await productLocator[productIndex].getByRole('img').first().hover();
-  await page.locator('.overlay-content .btn').nth(productIndex).click();
-
-  await expect(
-    page.getByRole('paragraph').filter({ hasText: PRODUCT_ADDED_MESSAGE })
-  ).toBeVisible();
-
-  continueShopping
-    ? await page.getByRole('button', { name: 'Continue Shopping' }).click()
-    : await page.getByRole('link', { name: 'View Cart' }).click();
-
-  return product;
-};
 
 const verifyCartItems = async (page, productsToVerify) => {
   for (const product of productsToVerify) {

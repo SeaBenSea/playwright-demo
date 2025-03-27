@@ -4,3 +4,4 @@ reports/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+test-downloads/
